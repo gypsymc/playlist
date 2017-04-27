@@ -1,0 +1,53 @@
+<div id="wrapper_with_padding">
+	<h1>Hello, <span><%= @user.first_name %> <%= @user.last_name %></span></h1>
+	<% if flash[:success_notice] %>
+	  <h3 id="alert"><%= flash[:success_notice] %></h3>
+	<% end %>
+	<div id="nav_box">
+		<%= link_to 'My Playlist', controller: 'users', action: 'show', id: session[:user_id], class: "button" %>
+		<%= link_to 'Logout', controller: 'users', action: 'logout' %>
+	</div><!-- //nav_box -->
+
+	<h3>All the songs in our hub:</h3>
+	<% if flash[:success_song] %>
+	  <h3 id="alert"><%= flash[:success_song] %></h3>
+	<% end %>
+	<% if flash[:play_success] %>
+	  <h3 id="alert"><%= flash[:play_success] %></h3>
+	<% end %>
+
+	<table id="table table-hover">
+		<thead>
+			<tr>
+				<th>Artist</th>
+				<th>Title</th>
+				<th>No. of Times Song Has Been Added</th>
+				<th>Add to Playlist</th>
+			</tr>
+		</thead>
+		<tbody>
+				<!-- get all the songs -->
+				<% @songs.each do |s| %>
+				<tr>
+					<td><%= s.artist %></td>
+	        <td><a id="table_btn" href="/songs/<%= s.id %>"><%= s.title %></a></td>
+	        <td><%= s.playlists.count %></td>
+					<td>
+						<form action="/playlists" method="POST">
+							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+							<input type="hidden" name="song_id" value="<%= s.id %>">
+							<input type="submit" value="Add" id="button">
+						</form>
+					</td>
+				</tr>
+				<% end %>
+		</tbody>
+	</table>
+	
+	<div id="add_container">
+		<fieldset>
+			<legend>Add a song:</legend>
+				<%= render "add" %>
+		</fieldset>
+	</div><!-- //register_container -->
+</div><!-- //wrapper_with_padding -->

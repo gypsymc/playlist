@@ -1,0 +1,13 @@
+<%= simple_form_for @new_song, url: 'create' do |f| %>
+	<div id="form-group">
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+	</div><!-- //form-group -->
+	<div id="form-group">
+		<%= f.label :artist %>
+		<%= f.text_field :artist %>
+	</div><!-- //form-group -->
+	<div id="form-group">
+		<%= f.submit "Add Song", class: "button" %>
+	</div><!-- //form-group -->
+<% end %>

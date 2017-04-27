@@ -1,0 +1,28 @@
+<div id="wrapper_with_padding">
+	<h1>Others who added <%= @song.artist %> - <%= @song.title %></h1>
+	<div id="nav_box">
+		<a id="btn-small" href="/songs">Dashboard</a>
+		<%= link_to 'My Playlist', controller: 'users', action: 'show', id: session[:user_id] %>
+		<%= link_to 'Logout', controller: 'users', action: 'logout' %>
+	</div><!-- //nav_box -->
+
+	<table id="table table-hover">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>No. of Times Song Has Been Added</th>
+			</tr>
+		</thead>
+		<tbody>
+				<!-- get all the users songs -->
+				<% @playlists.group(:user_id).each do |p| %>
+				<tr>
+					<% if p.user_id != session[:user_id] %>
+					<td><a id="table_btn" href="/users/<%= p.user.id%>"><%= p.user.first_name %></a></td>
+					<td><%= @playlists.where(user_id:p.user_id).count %></td>
+					<% end %>
+				</tr>
+				<% end %>
+		</tbody>
+	</table>
+</div><!-- //wrapper_with_padding -->

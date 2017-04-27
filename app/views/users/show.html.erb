@@ -1,0 +1,26 @@
+<div >
+	<h1><%= @user.first_name %>'s Playlist</h1>
+	<div >
+		<a  href="/songs">Dashboard</a>
+		<%= link_to "Logout", controller: 'users', action: 'logout' %>
+	</div>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Artist</th>
+				<th>Title</th>
+				<th>Times Added</th>
+			</tr>
+		</thead>
+		<tbody>
+				<% Playlist.all.where(user_id:@user.id).group(:song_id).each do |p| %>
+				<tr>
+					<td><%= p.song.title %></td>
+					<td><%= p.song.artist %></td>
+					<td><%= Playlist.all.where(song_id:p.song_id, user_id:p.user_id).count %></td>
+				</tr>
+				<% end %>
+		</tbody>
+	</table>
+</div>
