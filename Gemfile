@@ -34,6 +34,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'hirb'
 gem 'simple_form'
 gem 'faker'
+gem 'bg'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
